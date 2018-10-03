@@ -1,0 +1,25 @@
+{
+  "name": "jekyll-infinite-scroll",
+  "description": "jekyll infinite scroll",
+  "main": "lib/InfiniteScroll.js",
+  "authors": [
+    "Jay <fb.jaemin@gmail.com> (https://github.com/J911)"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "jekyll",
+    "pagenation",
+    "infinite",
+    "scroll",
+    "infinite-scroll"
+  ],
+  "homepage": "https://github.com/J911/jekyll-infinite-scroll",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    ".gitignore"
+  ]
+}
