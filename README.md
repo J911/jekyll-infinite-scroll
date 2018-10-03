@@ -1,10 +1,13 @@
 # jekyll-infinite-scroll
+![bower-modules](https://img.shields.io/badge/Bower-modules-green.svg)
+![MIT-LISENCE](https://img.shields.io/badge/license-MIT-blue.svg)
+
 jekyll infinite scroll
 
 ## install
 
 ```
-$ npm i jekyll-infinite-scroll
+$ bower install jekyll-infinite-scroll --save
 ```
 or
 ```
