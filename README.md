@@ -1,4 +1,5 @@
 # jekyll-infinite-scroll
+![CDN](https://img.shields.io/badge/CDN-1.0.5-red.svg)
 ![bower-modules](https://img.shields.io/badge/Bower-modules-green.svg)
 ![MIT-LISENCE](https://img.shields.io/badge/license-MIT-blue.svg)
 
