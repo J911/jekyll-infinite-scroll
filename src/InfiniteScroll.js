@@ -16,18 +16,18 @@ class InfiniteScroll {
                 this.getNewPost();
         };    
     }
-    getNewPost() {
+    async getNewPost() {
         if (this.enable === false) return false;
         this.enable = false;
 
-        fetch(`${location.origin + this.path + this.pNum}/index.html`).then(response => {
-            if(response.status === 200) { return response.text(); }
-        }).then(responseText => {
+        const response = await fetch(`${location.origin + this.path + this.pNum}/index.html`);
+        if(response.ok) {
+            const responseText = await response.text();
             const childItems = this.getChildItemsByAjaxHTML(responseText);
             this.appendNewItems(childItems);
             this.pNum++;
-            return this.enable = true;
-        }).catch(e => {});
+            return this.enable = true;                                
+        }
     }
 
     getChildItemsByAjaxHTML(HTMLText) {
