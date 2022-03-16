@@ -1,10 +1,10 @@
 class InfiniteScroll {
-    constructor (path, wrapperId) {
-        if (path === undefined || wrapperId === undefined) throw Error ('no parameter.');
+    constructor (path, wrapperSelector) {
+        if (path === undefined || wrapperSelector === undefined) throw Error ('no parameter.');
         this.path = path;
         this.pNum = 2;
-        this.wNode = document.getElementById(wrapperId);
-        this.wrapperId = wrapperId;
+        this.wNode = document.querySelector(`${wrapperSelector}`);
+        this.wrapperSelector = wrapperSelector;
         this.enable = true;
 
         this.detectScroll();
@@ -12,32 +12,28 @@ class InfiniteScroll {
 
     detectScroll() {
         window.onscroll = (ev) => {
-            if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) 
+            if ((window.innerHeight + Math.ceil(window.pageYOffset)) >= document.body.offsetHeight) 
                 this.getNewPost();
         };    
     }
-    getNewPost() {
+    async getNewPost() {
         if (this.enable === false) return false;
         this.enable = false;
-        const xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = () => {
-            if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-                if (xmlhttp.status == 200) {
-                    this.pNum++;
-                    const childItems = this.getChildItemsByAjaxHTML(xmlhttp.responseText);
-                    this.appendNewItems(childItems);
-                }
-                return this.enable = true;
-            }
+
+        const response = await fetch(`${location.origin + this.path + this.pNum}/index.html`);
+        if(response.ok) {
+            const responseText = await response.text();
+            const childItems = this.getChildItemsByAjaxHTML(responseText);
+            this.appendNewItems(childItems);
+            this.pNum++;
+            return this.enable = true;                                
         }
-        xmlhttp.open("GET", `${location.origin + this.path + this.pNum}/index.html`, true);
-        xmlhttp.send();
     }
 
     getChildItemsByAjaxHTML(HTMLText) {
         const newHTML = document.createElement('html');
         newHTML.innerHTML = HTMLText;
-        const childItems = newHTML.querySelectorAll(`#${this.wrapperId} > *`);
+        const childItems = newHTML.querySelectorAll(`${this.wrapperSelector} > *`);
         return childItems;
     }
 
